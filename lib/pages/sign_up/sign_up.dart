@@ -21,7 +21,10 @@ class SignUp extends ConsumerWidget {
       color: Colors.white,
       child: SafeArea(
         child: Scaffold(
-            appBar: buildAppBar(appBarTitle: "Register"),
+          appBar: AppBar(
+            title: Text("Register", style: TextStyle(color: Colors.black,)),
+          ),
+            //appBar: buildAppBar(appBarTitle: "Register"),
             backgroundColor: Colors.white,
             body: loader == false ?  SingleChildScrollView(
               child: Column(

@@ -22,7 +22,10 @@ class SignIn extends ConsumerWidget {
       color: Colors.white,
       child: SafeArea(
         child: Scaffold(
-          appBar: buildAppBar(appBarTitle: "Login"),
+          //appBar: buildAppBar(appBarTitle: "Login"),
+          appBar: AppBar(
+            title: Text("Login", style: TextStyle(color: Colors.black,)),
+          ),
           backgroundColor: Colors.white,
           body:  loader == false ?  SingleChildScrollView(
             child: Column(
