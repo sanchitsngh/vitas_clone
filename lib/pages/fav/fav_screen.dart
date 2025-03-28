@@ -13,7 +13,7 @@ class FilteredItemsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Filtered Items'),
+        title: const Text('Favourite Screen'),
       ),
       body: ListView.builder(
         itemCount: filteredItems.length,
