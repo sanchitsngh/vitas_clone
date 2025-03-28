@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vitas_clone/common/utils/drawer/settings.dart';
 import 'package:vitas_clone/pages/fav/fav_provider.dart';
 import 'package:vitas_clone/pages/fav/fav_screen.dart';
 
@@ -44,6 +45,14 @@ class CustomDrawer extends ConsumerWidget {
           ListTile(
             leading: Icon(Icons.settings),
             title: Text('Settings'),
+            onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const ReorderableListScreen(),
+      ),
+    );
+  },
             
           ),
           ListTile(

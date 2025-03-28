@@ -26,19 +26,17 @@ class FavNotifier extends StateNotifier<FavState> {
     final allItems = List<Fav>.from(state.allItems);
     final filterItems = List<Fav>.from(state.filterItems);
 
-    // If the item is currently in filterItems (favorite), remove it from there and make it un-favorite in allItems
     if (filterItems.any((item) => item.name == fav.name)) {
       filterItems.removeWhere((item) => item.name == fav.name);
-      allItems[allItems.indexWhere((item) => item.name == fav.name)] = fav.copyWith(favourite: false);
-    } 
-    // Otherwise, add it to filterItems and make it favorite
-    else {
+      allItems[allItems.indexWhere((item) => item.name == fav.name)] =
+          fav.copyWith(favourite: false);
+    } else {
       filterItems.add(fav.copyWith(favourite: true));
-      allItems[allItems.indexWhere((item) => item.name == fav.name)] = fav.copyWith(favourite: true);
+      allItems[allItems.indexWhere((item) => item.name == fav.name)] =
+          fav.copyWith(favourite: true);
     }
 
-    // Update state
-    state = state.copyWith(allItems: allItems, filterItems: filterItems);
+    state = FavState(allItems: allItems, filterItems: filterItems);
   }
 
   // Method to manually add an item to the allItems list (for testing)
@@ -47,5 +45,15 @@ class FavNotifier extends StateNotifier<FavState> {
     allItems.add(item);
     state = state.copyWith(allItems: allItems);
   }
+  
+   // Method to update the list order
+  void updateItems(List<Fav> newItems) {
+    state = FavState(
+      allItems: newItems,
+      filterItems: state.filterItems,
+    );
+  }
 }
+
+ 
 
