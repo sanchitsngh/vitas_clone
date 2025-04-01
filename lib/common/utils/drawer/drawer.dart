@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vitas_clone/common/utils/drawer/settings.dart';
+import 'package:vitas_clone/core/utils/drawer/settings.dart';
 import 'package:vitas_clone/pages/fav/fav_provider.dart';
 import 'package:vitas_clone/pages/fav/fav_screen.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
-import 'notifier/navbar_index_notifier.dart';
+import 'provider/navbar_index_notifier.dart';
 
 class GlobalNavBar extends ConsumerWidget {
   const GlobalNavBar({super.key});

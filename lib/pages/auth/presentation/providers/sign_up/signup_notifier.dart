@@ -1,5 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vitas_clone/pages/sign_up/notifier/sign_up_state.dart';
+import 'package:vitas_clone/pages/auth/presentation/state/sign_up_state.dart';
 part 'signup_notifier.g.dart';
 
 @riverpod
