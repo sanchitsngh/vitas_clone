@@ -25,7 +25,7 @@ class FilteredItemsScreen extends ConsumerWidget {
             trailing: IconButton(
               icon: const Icon(
                 Icons.favorite,
-                color: Colors.red,  // Colored heart as it's in the filter list
+                color: Colors.red,
               ),
               onPressed: () {
                 ref.read(favProvider.notifier).toggleFavorite(fav); // Move back to allItems
