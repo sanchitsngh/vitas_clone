@@ -1,4 +1,3 @@
-
 import 'fav.dart';
 
 class FavState {

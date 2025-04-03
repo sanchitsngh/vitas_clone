@@ -13,10 +13,10 @@ class FavNotifier extends StateNotifier<FavState> {
   FavNotifier()
       : super(FavState(
           allItems: [
-            Fav(name: 'Item 1', favourite: false),
-            Fav(name: 'Item 2', favourite: false),
-            Fav(name: 'Item 3', favourite: false),
-            Fav(name: 'Item 4', favourite: false),
+            Fav(name: 'Articles', favourite: false),
+            Fav(name: 'News', favourite: false),
+            Fav(name: 'Services', favourite: false),
+            Fav(name: 'Webinars', favourite: false),
           ],
           filterItems: [],
         ));
