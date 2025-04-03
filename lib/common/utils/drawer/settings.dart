@@ -41,7 +41,7 @@ class ReorderableListScreen extends ConsumerWidget {
           children: [
             for (final fav in favState.allItems)
               Container(
-                key: ValueKey(fav.name),  // Unique key for each item
+                key: ValueKey(fav.name), // Unique key for each item
                 margin: const EdgeInsets.symmetric(vertical: 8.0),
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -54,17 +54,43 @@ class ReorderableListScreen extends ConsumerWidget {
                     ),
                   ],
                 ),
-                child: ListTile(
-                  contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 20.0),
-                  leading: Icon(
-                    Icons.drag_handle,
-                    color: Colors.blueGrey[600],
+                child: GestureDetector(
+                  onTap: () {
+                    ref.read(favProvider.notifier).toggleFavorite(fav);
+                  },
+                  child: Column(
+                    children: [
+                      // The drag handle
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Icon(
+                          Icons.drag_handle,
+                          color: Colors.blueGrey[600],
+                        ),
+                      ),
+                      // Item content
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          children: [
+                            Text(
+                              fav.name,
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Icon(
+                              fav.favourite ? Icons.favorite : Icons.favorite_border,
+                              color: fav.favourite ? Colors.red : Colors.grey,
+                              size: 30,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                  title: Text(
-                    fav.name,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text("Drag to reorder", style: TextStyle(fontSize: 12, color: Colors.blueGrey[400])),
                 ),
               ),
           ],
