@@ -104,7 +104,8 @@ class FilteredItemsScreen extends ConsumerWidget {
                     ),
                   ),
                 ],
-        
+              )
+            )
           );
         },
       ),
