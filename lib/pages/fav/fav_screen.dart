@@ -23,6 +23,7 @@ class FilteredItemsScreen extends ConsumerWidget {
         itemBuilder: (context, index) {
           Fav fav = filteredItems[index];
 
+
           // Check if the item is in the filterItems list (favorite)
           bool isInFilter = filteredItems.any((item) => item.name == fav.name);
 
@@ -103,8 +104,7 @@ class FilteredItemsScreen extends ConsumerWidget {
                     ),
                   ),
                 ],
-              ),
-            ),
+        
           );
         },
       ),
