@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vitas_clone/common/utils/drawer/drawer.dart';
-import '../../common/utils/global navbar/global_nav_bar.dart';
 import '../../common/widgets/app_bar.dart';
+import '../../common/utils/drawer/drawer.dart';
+import '../../common/utils/global navbar/global_nav_bar.dart';
 
 class Referral extends StatelessWidget {
   Referral({super.key});

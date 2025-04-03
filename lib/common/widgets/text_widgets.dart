@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../utils/app_colors.dart';
+import '../../core/constants/app_colors.dart';
 
 Widget text24Normal({
   String text = "", Color color = AppColors.primaryText}) {
@@ -54,11 +53,12 @@ Widget text14Normal({
   );
 }
 
-Widget textUnderline({String text = "Your Text"}) {
+Widget textUnderline({
+  String text = "Your Text",
+  VoidCallback? onTap,
+}) {
   return GestureDetector(
-    onTap: (){
-      
-    },
+    onTap: onTap,
     child: Text(
       text,
       style: TextStyle(
@@ -66,7 +66,7 @@ Widget textUnderline({String text = "Your Text"}) {
         decoration: TextDecoration.underline,
         decorationColor: AppColors.primaryText,
         fontWeight: FontWeight.normal,
-        fontSize: 12.sp
+        fontSize: 12.sp,
       ),
     ),
   );

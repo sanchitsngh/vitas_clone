@@ -1,102 +1,111 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../common/utils/global loader/global_loader.dart';
-import '../../common/utils/validators.dart';
-import '../../common/widgets/popup_messages.dart';
-import 'notifier/signup_notifier.dart';
 
+import '../../../../common/utils/global loader/provider/global_loader.dart';
+import '../../../../common/widgets/popup_messages.dart';
+import '../../../../core/utils/validators.dart';
+import '../providers/sign_up/signup_notifier.dart';
 
 class SignUpController {
   late WidgetRef ref;
 
   SignUpController({required this.ref});
 
+  bool isFormValid() {
+    final state = ref.read(registerNotifierProvider);
+    return state.userName.isNotEmpty &&
+        Validators.isValidName(state.userName) &&
+        state.email.isNotEmpty &&
+        Validators.isValidEmail(state.email) &&
+        state.password.isNotEmpty &&
+        Validators.isValidPassword(state.password) &&
+        state.confirmPassword.isNotEmpty &&
+        state.password == state.confirmPassword;
+  }
+
   void handleSignUp() async {
-    var state = ref.read(registerNotifierProvider);
+    final state = ref.read(registerNotifierProvider);
     String userName = state.userName.trim();
     String userEmail = state.email.trim();
-    String password = state.password;
-    String confirmPassword = state.confirmPassword;
+    String password = state.password.trim();
+    String confirmPassword = state.confirmPassword.trim();
 
-    // Check for empty fields
-    if (userName.isEmpty) {
-      toastInfo("Name cannot be empty");
+    // Validation checks
+    final notifier = ref.read(registerNotifierProvider.notifier);
+
+    // Only validate if fields have been touched
+    if (userName.isNotEmpty) {
+      if (!Validators.isValidName(userName)) {
+        notifier.setUserNameError("Only letters, digits (1-9), and special symbols \$, @, _ are allowed.");
+      } else {
+        notifier.setUserNameError(null);
+      }
+    }
+
+    if (userEmail.isNotEmpty) {
+      if (!Validators.isValidEmail(userEmail)) {
+        notifier.setEmailError("Enter a valid email address");
+      } else {
+        notifier.setEmailError(null);
+      }
+    }
+
+    if (password.isNotEmpty) {
+      if (!Validators.isValidPassword(password)) {
+        notifier.setPasswordError("Password must be at least 8 characters long, contain a number, and an uppercase letter");
+      } else {
+        notifier.setPasswordError(null);
+      }
+    }
+
+    if (confirmPassword.isNotEmpty) {
+      if (password != confirmPassword) {
+        notifier.setConfirmPasswordError("Passwords do not match");
+      } else {
+        notifier.setConfirmPasswordError(null);
+      }
+    }
+
+    if (!isFormValid()) {
       return;
     }
 
-    if (userEmail.isEmpty) {
-      toastInfo("Email cannot be empty");
-      return;
-    }
-
-    if (password.isEmpty) {
-      toastInfo("Password cannot be empty");
-      return;
-    }
-
-    if (confirmPassword.isEmpty) {
-      toastInfo("Confirm Password cannot be empty");
-      return;
-    }
-
-    // Validate name
-    if (!Validators.isValidName(userName)) {
-      toastInfo("Only letters, digits (1-9), and special symbols \$, @, _ are allowed.");
-      return;
-    }
-
-    // Validate email
-    if (!Validators.isValidEmail(userEmail)) {
-      toastInfo("Please enter a valid email address");
-      return;
-    }
-
-    // Validate password
-    if (!Validators.isValidPassword(password)) {
-      toastInfo("Password must be at least 8 characters long, contain a number, and an uppercase letter");
-      return;
-    }
-
-    // Check if passwords match
-    if (password != confirmPassword) {
-      toastInfo("Passwords must be the same");
-      return;
-    }
-
-    //registration logic
+    // Proceed with Firebase request
     ref.read(appLoaderProvider.notifier).setLoaderValue(true);
-    var context =  Navigator.of(ref.context);
-    Future.delayed(const Duration(seconds: 3), () async {
-      try {
-        // Firebase authentication
-        final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: userEmail, password: password);
-        // If login is successful
-        if(credential.user != null){
-          await credential.user?.sendEmailVerification();
-          await credential.user?.updateDisplayName(userName);
-          toastInfo("An Email has been sent to verify your account. Please open the email and verify it.", backgroundColor: Colors.teal);
-          // Navigate to SignIn page
-          context.pop();
-        }
-      } on FirebaseAuthException catch(e) {
-        if(e.code == "weak-password"){
-          toastInfo("The password is too weak");
-        } else if(e.code == "email-already-in-use") {
-          toastInfo("This email address has already been registered");
-        } else if(e.code == "user-disabled") {
-          toastInfo("The user account has been disabled.");
-        } else {
-          toastInfo("Authentication error: ${e.message}");
-        }
-      } catch(e) {
-        toastInfo("something went wrong");
-        ref.read(appLoaderProvider.notifier).setLoaderValue(false);
+    var context = Navigator.of(ref.context);
+
+    
+    try {
+      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: userEmail,
+        password: password,
+      );
+      // Handle successful signup
+      print("User signed up successfully: ${credential.user?.email}");
+    } on FirebaseAuthException catch (e) {
+      String errorMessage;
+      switch (e.code) {
+        case 'email-already-in-use':
+          errorMessage = "The email address is already in use by another account.";
+          break;
+        case 'invalid-email':
+          errorMessage = "The email address is not valid.";
+          break;
+        case 'weak-password':
+          errorMessage = "The password is too weak.";
+          break;
+        case 'operation-not-allowed':
+          errorMessage = "Email/password accounts are not enabled.";
+          break;
+        default:
+          errorMessage = "An unexpected error occurred. Please try again.";
       }
-      finally {
-        // Hide loader after process is completed
-        ref.read(appLoaderProvider.notifier).setLoaderValue(false);
-      }
-    });
+      toastInfo(errorMessage);
+    } catch (e) {
+      toastInfo("Something went wrong. Please try again later.");
+    } finally {
+      ref.read(appLoaderProvider.notifier).setLoaderValue(false);
+    }
   }
 }

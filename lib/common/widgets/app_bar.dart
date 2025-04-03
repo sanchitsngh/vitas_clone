@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vitas_clone/common/widgets/text_widgets.dart';
-import '../utils/app_colors.dart';
+
+import '../../core/constants/app_colors.dart';
 
 AppBar buildAppBar({required String appBarTitle, 
 bool showProfileIcon = true,

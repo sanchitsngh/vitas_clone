@@ -1,26 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'signup_notifier.dart';
+part of 'forgot_password_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$registerNotifierHash() => r'ccd6bd76ade4f5dbcb0d25083726daf38bb9ea62';
+String _$forgotPasswordNotifierHash() =>
+    r'44b3e30accc29ee105c2ce2cdc713abbbd13f014';
 
-/// See also [RegisterNotifier].
-@ProviderFor(RegisterNotifier)
-final registerNotifierProvider =
-    AutoDisposeNotifierProvider<RegisterNotifier, RegisterState>.internal(
-  RegisterNotifier.new,
-  name: r'registerNotifierProvider',
+/// See also [ForgotPasswordNotifier].
+@ProviderFor(ForgotPasswordNotifier)
+final forgotPasswordNotifierProvider = AutoDisposeNotifierProvider<
+    ForgotPasswordNotifier, ForgotPasswordState>.internal(
+  ForgotPasswordNotifier.new,
+  name: r'forgotPasswordNotifierProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$registerNotifierHash,
+      : _$forgotPasswordNotifierHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$RegisterNotifier = AutoDisposeNotifier<RegisterState>;
+typedef _$ForgotPasswordNotifier = AutoDisposeNotifier<ForgotPasswordState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

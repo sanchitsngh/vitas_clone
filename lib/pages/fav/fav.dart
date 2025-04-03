@@ -1,6 +1,3 @@
-
-
-
 class Fav {
   final String name;
   final bool favourite;

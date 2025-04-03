@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vitas_clone/common/utils/drawer/drawer.dart';
 import 'package:vitas_clone/pages/fav/fav.dart';
 import 'package:vitas_clone/pages/fav/fav_provider.dart';
-import '../../common/utils/global navbar/global_nav_bar.dart';
 import '../../common/widgets/app_bar.dart';
+import '../../common/utils/drawer/drawer.dart';
+import '../../common/utils/global navbar/global_nav_bar.dart';
 
 class Homepage extends ConsumerWidget {
   Homepage({super.key});
