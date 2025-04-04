@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../common/utils/global loader/provider/global_loader.dart';
@@ -81,8 +82,8 @@ class SignUpController {
         email: userEmail,
         password: password,
       );
-      // Handle successful signup
-      print("User signed up successfully: ${credential.user?.email}");
+      toastInfo("Registered successfully", backgroundColor: Colors.teal);
+      context.pushNamed("SignIn");
     } on FirebaseAuthException catch (e) {
       String errorMessage;
       switch (e.code) {
