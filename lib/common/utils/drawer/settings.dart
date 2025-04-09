@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vitas_clone/pages/fav/fav.dart';
-import 'package:vitas_clone/pages/fav/fav_provider.dart';
+import 'package:vitas_clone/common/utils/drawer/provider/settings_provider.dart';
+//import 'package:vitas_clone/pages/fav/fav_provider.dart';
+//import 'package:vitas_clone/pages/fav/widget_order_provider.dart'; // Import the new provider
 
 class ReorderableListScreen extends ConsumerWidget {
   const ReorderableListScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final favState = ref.watch(favProvider);
+    // Watch the widgetOrderProvider for the current widget names
+    final widgetNames = ref.watch(widgetOrderProvider);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Reorder Items"),
+        title: const Text("Reorder Widgets"),
         actions: [
           IconButton(
             icon: const Icon(Icons.save),
@@ -30,18 +32,18 @@ class ReorderableListScreen extends ConsumerWidget {
               newIndex -= 1;
             }
 
-            // Reorder the items and update the state
-            final List<Fav> reorderedItems = List<Fav>.from(favState.allItems);
+            // Reorder the items and update the state using widgetOrderProvider
+            final List<String> reorderedItems = List<String>.from(widgetNames);
             final item = reorderedItems.removeAt(oldIndex);
             reorderedItems.insert(newIndex, item);
 
             // Update the provider with the new list order
-            ref.read(favProvider.notifier).updateItems(reorderedItems);
+            ref.read(widgetOrderProvider.notifier).updateWidgetOrder(reorderedItems);
           },
           children: [
-            for (final fav in favState.allItems)
+            for (final widgetName in widgetNames)
               Container(
-                key: ValueKey(fav.name), // Unique key for each item
+                key: ValueKey(widgetName), // Unique key for each item
                 margin: const EdgeInsets.symmetric(vertical: 8.0),
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -56,7 +58,7 @@ class ReorderableListScreen extends ConsumerWidget {
                 ),
                 child: GestureDetector(
                   onTap: () {
-                    ref.read(favProvider.notifier).toggleFavorite(fav);
+                    // You can add any action on tap if required
                   },
                   child: Column(
                     children: [
@@ -68,25 +70,15 @@ class ReorderableListScreen extends ConsumerWidget {
                           color: Colors.blueGrey[600],
                         ),
                       ),
-                      // Item content
+                      // Widget content
                       Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          children: [
-                            Text(
-                              fav.name,
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Icon(
-                              fav.favourite ? Icons.favorite : Icons.favorite_border,
-                              color: fav.favourite ? Colors.red : Colors.grey,
-                              size: 30,
-                            ),
-                          ],
+                        child: Text(
+                          widgetName,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ],

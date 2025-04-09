@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vitas_clone/common/utils/drawer/settings.dart';
-import 'package:vitas_clone/pages/fav/fav_provider.dart';
+//import 'package:vitas_clone/pages/fav/fav_provider.dart';
 import 'package:vitas_clone/pages/fav/fav_screen.dart';
 import 'package:vitas_clone/pages/auth/presentation/providers/google_auth/google_auth_notifier.dart';
 import '../../../pages/auth/presentation/pages/sign_in_page.dart';
@@ -11,7 +11,7 @@ class CustomDrawer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final favState = ref.watch(favProvider);
+    //final favState = ref.watch(favProvider);
 
     return Drawer(
       child: ListView(
@@ -58,7 +58,7 @@ class CustomDrawer extends ConsumerWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      FilteredItemsScreen(filteredItems: favState.filterItems),
+                      FilteredItemsScreen(),//filteredItems: favState.filterItems),
                 ),
               );
             },
