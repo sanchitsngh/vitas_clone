@@ -56,7 +56,7 @@ class MyApp extends ConsumerWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
-          theme: AppTheme.appThemeData,
+          theme: AppTheme.appTheme(context: context),
           //Modify home based on auth state
           home: authAsync.when(
             data: (user) => user != null ? Homepage() : Welcome(),
