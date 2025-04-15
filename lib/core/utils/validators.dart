@@ -20,4 +20,36 @@ class Validators {
   static bool isValidPassword(String password) {
     return password.length >= 8 && hasNumber(password) && hasUpperCase(password);
   }
+
+   static String? validateEmail(String? value, bool isRequired) {
+    if (isRequired && (value == null || value.isEmpty)) {
+      return "This field is required"; // Validation for empty input
+    }
+
+    if (value != null && !isValidEmail(value)) {
+      return "Enter a valid Email";
+    }
+
+    return null;
+  }
+
+  static String? validatePhoneNumber(String? value, bool isRequired) {
+    if (isRequired && (value == null || value.isEmpty)) {
+      return "This field is required";
+    }
+
+    if (value != null && !RegExp(r'^\d{10}$').hasMatch(value)) {
+      return "Enter a valid phone number";
+    }
+
+    return null;
+  }
+
+  static String? validateRequiredField(String? value, bool isRequired) {
+    if (isRequired && (value == null || value.isEmpty)) {
+      return "This field is required";
+    }
+
+    return null;
+  }
 }

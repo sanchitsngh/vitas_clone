@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vitas_clone/common/widgets/card.dart';
+import 'package:vitas_clone/pages/referral/referral_component.dart';
 import '../../common/widgets/app_bar.dart';
 import '../../common/utils/drawer/drawer.dart';
 import '../../common/utils/global navbar/global_nav_bar.dart';
@@ -20,7 +22,12 @@ class Referral extends StatelessWidget {
           _scaffoldKey.currentState?.openDrawer();
         },),
       body: Center(
-        child: Text("Referral Page", style: TextStyle(fontSize: 25)),
+        child: Container(
+          child: SafeArea(
+              child: VitasCard(
+                  elevation: VitasCardElevation.high,
+                  child: ReferralContentWidget())),
+        ),
       ),
       bottomNavigationBar: GlobalNavBar(),
     );
